@@ -1,0 +1,343 @@
+<!DOCTYPE html> 
+ <html lang="en"> 
+ <head> 
+     <meta charset="UTF-8"> 
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+     <title>Paradise Golf - Member Portal</title> 
+     <script src="https://cdn.tailwindcss.com"></script> 
+     <link rel="preconnect" href="https://fonts.googleapis.com"> 
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet"> 
+     <style> 
+         /* Custom Styles for the premium feel */ 
+         body { 
+             font-family: 'Montserrat', sans-serif; 
+             background-color: #001a00; /* A darker shade for depth */ 
+         } 
+
+         /* 3D Card Flip Styles */ 
+         .perspective-container { 
+             perspective: 1000px; 
+         } 
+
+         .card-inner { 
+             position: relative; 
+             width: 100%; 
+             height: 100%; 
+             transition: transform 0.8s; 
+             transform-style: preserve-3d; 
+         } 
+
+         .card-face { 
+             position: absolute; 
+             width: 100%; 
+             height: 100%; 
+             -webkit-backface-visibility: hidden; /* Safari */ 
+             backface-visibility: hidden; 
+             border-radius: 1rem; 
+         } 
+
+         .card-back { 
+             transform: rotateY(180deg); 
+         } 
+
+         /* Nav active state style */ 
+         .nav-link-active { 
+             color: #D4AF37; /* Gold */ 
+             border-bottom: 2px solid #D4AF37; 
+         } 
+
+         /* Custom scrollbar for a sleek look */ 
+         ::-webkit-scrollbar { 
+             width: 8px; 
+         } 
+         ::-webkit-scrollbar-track { 
+             background: #003300; 
+         } 
+         ::-webkit-scrollbar-thumb { 
+             background: #D4AF37; 
+             border-radius: 10px; 
+         } 
+         ::-webkit-scrollbar-thumb:hover { 
+             background: #b89b3c; 
+         } 
+
+         /* Custom selection color */ 
+         ::selection { 
+             background: rgba(212, 175, 55, 0.3); 
+             color: white; 
+         }
+         
+         /* Style for disabled inputs to match the design */
+         input:disabled {
+             background-color: rgba(0, 0, 0, 0.2);
+             cursor: not-allowed;
+             color: rgba(255, 255, 255, 0.7);
+         }
+     </style> 
+ </head> 
+ <body class="text-white antialiased"> 
+
+     <div id="app" class="min-h-screen flex flex-col"> 
+
+         <!-- Header and Navigation --> 
+         <header class="bg-black bg-opacity-20 backdrop-blur-md p-4 sticky top-0 z-50"> 
+             <nav class="max-w-7xl mx-auto flex justify-between items-center"> 
+                 <div class="text-2xl font-bold tracking-wider"> 
+                     <span class="text-white">PARADISE</span><span class="text-[#D4AF37]">GOLF</span> 
+                 </div> 
+                 <div id="nav-links" class="flex space-x-8 text-lg"> 
+                     <a href="#" class="nav-link nav-link-active py-2" data-view="card">My Card</a> 
+                     <a href="#" class="nav-link py-2" data-view="buy">Buy Memberships</a> 
+                     <a href="#" class="nav-link py-2" data-view="profile">My Profile</a> 
+                 </div> 
+             </nav> 
+         </header> 
+
+         <!-- Main Content Area --> 
+         <main class="flex-grow flex items-center justify-center p-4 md:p-8 transition-opacity duration-500"> 
+              
+             <!-- View: Digital Membership Card --> 
+             <div id="view-card" class="view-content"> 
+                 <div class="perspective-container w-[400px] h-[250px] md:w-[450px] md:h-[280px] cursor-pointer" onclick="flipCard()"> 
+                     <div id="card-inner" class="card-inner"> 
+                         <!-- Card Front --> 
+                         <div class="card-face bg-gradient-to-br from-[#004D00] to-[#003300] p-6 flex flex-col justify-between border border-yellow-700/30 shadow-2xl shadow-black/50"> 
+                             <div class="flex justify-between items-center"> 
+                                 <span class="font-bold text-lg text-[#D4AF37]">Paradise Golf</span> 
+                                 <span class="text-sm font-semibold bg-yellow-600/20 text-yellow-300 px-3 py-1 rounded-full">PREMIUM</span> 
+                             </div> 
+                             <div class="text-right"> 
+                                 <p class="text-2xl md:text-3xl font-light tracking-wide">Joe Proulx</p> 
+                                 <p class="text-xs text-white/60 font-mono">MEMBER ID: 191715</p> 
+                             </div> 
+                             <div class="flex justify-between items-end"> 
+                                 <img src="https://placehold.co/60x60/FFFFFF/000000?text=J.P" alt="User Photo" class="w-16 h-16 rounded-full border-2 border-[#D4AF37]"> 
+                                 <div class="text-right"> 
+                                     <p class="text-xs text-white/60">VALID UNTIL</p> 
+                                     <p class="font-semibold text-lg">Feb 2025</p> 
+                                 </div> 
+                             </div> 
+                         </div> 
+
+                         <!-- Card Back --> 
+                         <div class="card-face card-back bg-gradient-to-br from-[#003300] to-[#002200] p-6 flex items-center justify-around border border-yellow-700/30 shadow-2xl shadow-black/50"> 
+                             <!-- QR Code Placeholder --> 
+                             <div class="bg-white p-2 rounded-lg"> 
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#004D00" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h3v3H5zM5 16h3v3H5zM16 5h3v3h-3zM16 16h3v3h-3zM10.5 5h3v3h-3zM5 10.5h3v3H5zM10.5 16h3v3h-3zM16 10.5h3v3h-3zM10.5 10.5h3v3h-3z"/></svg> 
+                             </div> 
+                             <div class="border-l-2 border-[#D4AF37] pl-6 h-4/5 flex flex-col justify-center"> 
+                                 <h3 class="text-lg font-bold text-[#D4AF37] mb-2">Key Benefits</h3> 
+                                 <ul class="text-sm space-y-1 text-white/80"> 
+                                     <li>- Unlimited Anytime Access</li> 
+                                     <li>- 20% Pro Shop Discount</li> 
+                                     <li>- Free Range Balls</li> 
+                                     <li>- Guest Rate: $75</li> 
+                                 </ul> 
+                             </div> 
+                         </div> 
+                     </div> 
+                 </div> 
+                 <p class="text-center text-white/50 mt-6 animate-pulse">Click card to flip</p> 
+             </div> 
+
+             <!-- View: Buy Memberships --> 
+             <div id="view-buy" class="view-content hidden w-full max-w-7xl mx-auto"> 
+                  <h1 class="text-4xl font-bold text-center mb-10 text-[#D4AF37] tracking-wider">Membership Tiers</h1> 
+                  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> 
+                     <!-- Tier Card 1 --> 
+                     <div class="bg-black bg-opacity-20 border border-green-800/50 rounded-lg p-6 flex flex-col hover:border-[#D4AF37]/50 transition-all duration-300"> 
+                         <h2 class="text-2xl font-bold text-[#D4AF37]">Summer</h2> 
+                         <p class="text-4xl font-bold my-4">$599<span class="text-lg font-normal text-white/50">/ 120 days</span></p> 
+                         <ul class="space-y-2 text-white/80 flex-grow mb-6"> 
+                             <li>✓ Weekday Only Course Access</li> 
+                             <li>✓ Discounted Range Balls</li> 
+                             <li>✓ 10% Pro Shop Discount</li> 
+                             <li>✓ Eligible for Social Events</li> 
+                         </ul> 
+                         <button class="w-full bg-[#D4AF37] text-black font-bold py-3 rounded-lg hover:bg-[#b89b3c] transition-colors">Choose Plan</button> 
+                     </div> 
+                      <!-- Tier Card 2 (Highlighted) --> 
+                     <div class="bg-black bg-opacity-20 border-2 border-[#D4AF37] rounded-lg p-6 flex flex-col ring-2 ring-offset-4 ring-offset-[#001a00] ring-[#D4AF37]/50 relative overflow-hidden"> 
+                         <div class="absolute top-0 right-0 bg-[#D4AF37] text-black text-xs font-bold px-4 py-1 rounded-bl-lg">MOST POPULAR</div> 
+                         <h2 class="text-2xl font-bold text-white">Year-Around</h2> 
+                         <p class="text-4xl font-bold my-4">$1299<span class="text-lg font-normal text-white/50">/ 365 days</span></p> 
+                         <ul class="space-y-2 text-white/80 flex-grow mb-6"> 
+                             <li>✓ Unlimited Anytime Access</li> 
+                             <li>✓ Free Range Balls</li> 
+                             <li>✓ 20% Pro Shop Discount</li> 
+                             <li>✓ Eligible for Member Tournaments</li> 
+                             <li>✓ Family Policy Included</li> 
+                         </ul> 
+                         <button class="w-full bg-[#D4AF37] text-black font-bold py-3 rounded-lg hover:bg-[#b89b3c] transition-colors">Choose Plan</button> 
+                     </div> 
+                      <!-- Tier Card 3 --> 
+                     <div class="bg-black bg-opacity-20 border border-green-800/50 rounded-lg p-6 flex flex-col hover:border-[#D4AF37]/50 transition-all duration-300"> 
+                         <h2 class="text-2xl font-bold text-[#D4AF37]">Social</h2> 
+                         <p class="text-4xl font-bold my-4">$399<span class="text-lg font-normal text-white/50">/ 365 days</span></p> 
+                         <ul class="space-y-2 text-white/80 flex-grow mb-6"> 
+                             <li>✓ Clubhouse & Dining Access</li> 
+                             <li>✓ Social & Networking Events</li> 
+                             <li>✓ 5% Pro Shop Discount</li> 
+                             <li class="text-white/40">✗ No Course Access</li> 
+                         </ul> 
+                         <button class="w-full bg-[#D4AF37] text-black font-bold py-3 rounded-lg hover:bg-[#b89b3c] transition-colors">Choose Plan</button> 
+                     </div> 
+                  </div> 
+             </div> 
+
+             <!-- View: My Profile --> 
+             <div id="view-profile" class="view-content hidden w-full max-w-4xl mx-auto"> 
+                  <div class="bg-black bg-opacity-20 border border-green-800/50 rounded-lg p-8"> 
+                     <div class="flex flex-col md:flex-row items-center md:items-start md:space-x-8">
+                         <!-- Left Side: Profile Picture -->
+                         <div class="flex flex-col items-center space-y-4 mb-6 md:mb-0"> 
+                             <div class="relative"> 
+                                 <img src="https://placehold.co/120x120/FFFFFF/000000?text=J.P" alt="User Photo" id="profile-pic" class="w-32 h-32 rounded-full border-4 border-[#D4AF37]"> 
+                                 <label for="photo-upload" class="absolute bottom-0 right-0 bg-[#D4AF37] p-2 rounded-full cursor-pointer hover:bg-[#b89b3c] transition-colors"> 
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                                     <input type="file" id="photo-upload" class="hidden" accept="image/*"> 
+                                 </label> 
+                             </div> 
+                             <div class="text-center">
+                                 <h2 class="text-2xl font-bold">Joe Proulx</h2>
+                                 <p class="text-sm text-white/60">Member Since: 02/21/2024</p>
+                             </div>
+                         </div>
+
+                         <!-- Right Side: Profile Details Form -->
+                         <div class="w-full">
+                             <div class="flex justify-between items-center mb-6">
+                                <h1 class="text-3xl font-bold text-[#D4AF37]">My Profile</h1> 
+                                <div id="profile-actions">
+                                    <button id="edit-button" class="bg-gray-600/50 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-500/50 transition-colors">Edit Profile</button> 
+                                    <button id="save-button" class="hidden bg-[#D4AF37] text-black font-bold py-2 px-4 rounded-lg hover:bg-[#b89b3c] transition-colors">Save Changes</button> 
+                                </div>
+                             </div>
+                             
+                             <div id="profile-form" class="space-y-4"> 
+                                 <!-- Personal Info -->
+                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                     <div> 
+                                         <label class="text-sm text-white/60">Email</label> 
+                                         <input type="email" value="joeproulx@ymail.com" class="profile-input w-full bg-black/30 border border-green-700/50 p-3 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" disabled> 
+                                     </div> 
+                                     <div> 
+                                         <label class="text-sm text-white/60">Phone</label> 
+                                         <input type="tel" value="(912) 222-5005" class="profile-input w-full bg-black/30 border border-green-700/50 p-3 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" disabled> 
+                                     </div> 
+                                 </div>
+                                 <div> 
+                                     <label class="text-sm text-white/60">Spouse's Name</label> 
+                                     <input type="text" placeholder="Not Specified" class="profile-input w-full bg-black/30 border border-green-700/50 p-3 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" disabled> 
+                                 </div> 
+                                 
+                                 <!-- Address Info -->
+                                 <div class="pt-4 border-t border-green-800/50">
+                                     <h3 class="text-lg font-semibold text-white/80 mb-2">Mailing Address</h3>
+                                     <div> 
+                                         <label class="text-sm text-white/60">Street Address</label> 
+                                         <input type="text" value="11068 Sundrift Dr" class="profile-input w-full bg-black/30 border border-green-700/50 p-3 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" disabled> 
+                                     </div> 
+                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                                         <div> 
+                                             <label class="text-sm text-white/60">City</label> 
+                                             <input type="text" value="Tampa" class="profile-input w-full bg-black/30 border border-green-700/50 p-3 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" disabled> 
+                                         </div> 
+                                         <div> 
+                                             <label class="text-sm text-white/60">State</label> 
+                                             <input type="text" value="FL" class="profile-input w-full bg-black/30 border border-green-700/50 p-3 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" disabled> 
+                                         </div> 
+                                         <div> 
+                                             <label class="text-sm text-white/60">Postal Code</label> 
+                                             <input type="text" value="33647" class="profile-input w-full bg-black/30 border border-green-700/50 p-3 rounded-md mt-1 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" disabled> 
+                                         </div> 
+                                     </div>
+                                 </div>
+                             </div> 
+                         </div> 
+                     </div>
+                  </div> 
+             </div> 
+         </main> 
+     </div> 
+
+     <script> 
+         // --- Card Flip Logic --- 
+         let isCardFlipped = false; 
+         const cardInner = document.getElementById('card-inner'); 
+          
+         function flipCard() { 
+             isCardFlipped = !isCardFlipped; 
+             cardInner.style.transform = isCardFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'; 
+         } 
+
+         // --- View Switching Logic --- 
+         const navLinks = document.querySelectorAll('.nav-link'); 
+         const views = document.querySelectorAll('.view-content'); 
+
+         navLinks.forEach(link => { 
+             link.addEventListener('click', (e) => { 
+                 e.preventDefault(); 
+                 const viewToShow = e.target.getAttribute('data-view'); 
+
+                 // Update active nav link style 
+                 navLinks.forEach(l => l.classList.remove('nav-link-active')); 
+                 e.target.classList.add('nav-link-active'); 
+
+                 // Show the selected view and hide others 
+                 views.forEach(view => { 
+                     if (view.id === `view-${viewToShow}`) { 
+                         view.classList.remove('hidden'); 
+                     } else { 
+                         view.classList.add('hidden'); 
+                     } 
+                 }); 
+             }); 
+         }); 
+          
+         // --- Profile Picture Upload Logic --- 
+         const photoUpload = document.getElementById('photo-upload'); 
+         const profilePic = document.getElementById('profile-pic'); 
+          
+         photoUpload.addEventListener('change', (event) => { 
+             if (event.target.files && event.target.files[0]) { 
+                 const reader = new FileReader(); 
+                 reader.onload = function(e) { 
+                     profilePic.src = e.target.result; 
+                 } 
+                 reader.readAsDataURL(event.target.files[0]); 
+             } 
+         });
+         
+         // --- Profile Edit/Save Logic ---
+         const editButton = document.getElementById('edit-button');
+         const saveButton = document.getElementById('save-button');
+         const profileInputs = document.querySelectorAll('.profile-input');
+
+         editButton.addEventListener('click', () => {
+             // Enable all input fields
+             profileInputs.forEach(input => {
+                 input.disabled = false;
+             });
+             // Show save button, hide edit button
+             editButton.classList.add('hidden');
+             saveButton.classList.remove('hidden');
+         });
+
+         saveButton.addEventListener('click', () => {
+             // Disable all input fields
+             profileInputs.forEach(input => {
+                 input.disabled = true;
+             });
+             // Show edit button, hide save button
+             saveButton.classList.add('hidden');
+             editButton.classList.remove('hidden');
+             
+             // Here you would typically send the data to a server
+             // For now, it just simulates saving.
+         });
+
+     </script> 
+ </body> 
+ </html>
