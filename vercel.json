@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/admin",
+      "dest": "/admin_portal.html"
+    },
+    {
+      "src": "/staff",
+      "dest": "/staff_portal.html"
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
+}
+
